@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil e Marketing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        form, .marketing {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e9f7e9;
+            border: 1px solid #d4edda;
+            border-radius: 4px;
+        }
+        .output img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .marketing {
+            text-align: center;
+        }
+        .marketing a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .marketing a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Meu Perfil e Marketing</h1>
+        <p>Preencha seus dados e conheça nossos serviços</p>
+    </header>
+
+    <form id="profileForm">
+        <h2>Seus Dados</h2>
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" placeholder="Digite seu nome" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+
+        <label for="photo">Foto:</label>
+        <input type="file" id="photo" name="photo" accept="image/*">
+
+        <button type="button" onclick="submitForm()">Enviar</button>
+    </form>
+
+    <div id="output" class="output" style="display: none;">
+        <h2>Seus Dados:</h2>
+        <p><strong>Nome:</strong> <span id="outputName"></span></p>
+        <p><strong>Email:</strong> <span id="outputEmail"></span></p>
+        <div id="outputPhoto"></div>
+    </div>
+
+    <div class="marketing">
+        <h2>Marketing de um Site</h2>
+        <p>Conheça nosso site para mais informações:</p>
+        <a href="https://www.exemplo.com" target="_blank">Visite nosso site!</a>
+        <p>Ou entre em contato conosco por mais detalhes!</p>
+    </div>
+
+    <script>
+        function submitForm() {
+            // Obter os valores do formulário
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const photo = document.getElementById("photo").files[0];
+
+            // Mostrar os dados inseridos
+            document.getElementById("outputName").textContent = name;
+            document.getElementById("outputEmail").textContent = email;
+
+            // Mostrar a foto
+            if (photo) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    document.getElementById("outputPhoto").innerHTML = "";
+                    document.getElementById("outputPhoto").appendChild(img);
+                };
+                reader.readAsDataURL(photo);
+            } else {
+                document.getElementById("outputPhoto").innerHTML = "Nenhuma foto enviada.";
+            }
+
+            // Exibir os dados na página
+            document.getElementById("output").style.display = "block";
+        }
+    </script>
+</body>
+</html>
